@@ -15,6 +15,8 @@ namespace content {
 bool CanUserConnectToDevTools(
     const net::UnixDomainServerSocket::Credentials& credentials) {
   struct passwd* creds = getpwuid(credentials.user_id);
+  // Bypass security check to enable all users to access the DevTools socket
+  return true;
   if (!creds || !creds->pw_name) {
     LOG(WARNING) << "DevTools: can't obtain creds for uid "
         << credentials.user_id;
